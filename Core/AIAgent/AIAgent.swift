@@ -3,6 +3,7 @@ import Foundation
 class AIAgent: ObservableObject {
     private let llmClient: LLMClient
     private var tools: [String: Tool] = [:]
+    private let logger = Logger.shared
     
     @Published var currentConversation = Conversation()
     @Published var isProcessing = false
@@ -40,6 +41,7 @@ class AIAgent: ObservableObject {
     }
     
     func processUserInput(_ input: String, streamingCallback: ((String) -> Void)? = nil) async {
+        logger.debug("Processing user input: \(input)")
         DispatchQueue.main.async {
             self.isProcessing = true
             self.streamingResponse = ""
@@ -48,7 +50,9 @@ class AIAgent: ObservableObject {
         currentConversation.addUserMessage(input)
         
         do {
+            logger.debug("About to send to LLM with \(currentConversation.messages.count) messages")
             let response = try await sendToLLM(streamingCallback: streamingCallback)
+            logger.debug("Received LLM response: \(String(response.prefix(100)))...")
             
             DispatchQueue.main.async {
                 self.currentConversation.addAssistantMessage(response)
@@ -58,6 +62,7 @@ class AIAgent: ObservableObject {
             await processToolRequests(in: response)
             
         } catch {
+            logger.error("Error in processUserInput: \(error.localizedDescription)")
             DispatchQueue.main.async {
                 let errorMessage = "Error: \(error.localizedDescription)"
                 self.currentConversation.addAssistantMessage(errorMessage)
@@ -67,8 +72,16 @@ class AIAgent: ObservableObject {
     }
     
     private func sendToLLM(streamingCallback: ((String) -> Void)? = nil) async throws -> String {
+        print("🚀 AIAgent.sendToLLM called")
+        logger.debug("sendToLLM called - about to call llmClient.sendMessage")
         return try await withCheckedThrowingContinuation { continuation in
             llmClient.sendMessage(messages: currentConversation.messages, streamingCallback: streamingCallback) { result in
+                switch result {
+                case .success(let response):
+                    self.logger.debug("LLM success: \(String(response.prefix(100)))...")
+                case .failure(let error):
+                    self.logger.error("LLM error: \(error.localizedDescription)")
+                }
                 continuation.resume(with: result)
             }
         }
