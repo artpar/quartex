@@ -3,25 +3,25 @@ import Cocoa
 
 // MARK: - String Extensions
 extension String {
-    var isNotEmpty: Bool {
+    public var isNotEmpty: Bool {
         return !isEmpty
     }
     
-    func truncated(to length: Int, trailing: String = "...") -> String {
+    public func truncated(to length: Int, trailing: String = "...") -> String {
         if count > length {
             return String(prefix(length)) + trailing
         }
         return self
     }
     
-    func sanitized() -> String {
+    public func sanitized() -> String {
         return trimmingCharacters(in: .whitespacesAndNewlines)
     }
 }
 
 // MARK: - Data Extensions
 extension Data {
-    var humanReadableSize: String {
+    public var humanReadableSize: String {
         let byteCountFormatter = ByteCountFormatter()
         byteCountFormatter.allowedUnits = [.useBytes, .useKB, .useMB, .useGB]
         byteCountFormatter.countStyle = .file
@@ -31,7 +31,7 @@ extension Data {
 
 // MARK: - URL Extensions
 extension URL {
-    var fileSize: Int64 {
+    public var fileSize: Int64 {
         do {
             let resourceValues = try resourceValues(forKeys: [.fileSizeKey])
             return Int64(resourceValues.fileSize ?? 0)
@@ -40,28 +40,28 @@ extension URL {
         }
     }
     
-    var isImageFile: Bool {
+    public var isImageFile: Bool {
         return Constants.supportedImageFormats.contains(pathExtension.lowercased())
     }
     
-    var isAudioFile: Bool {
+    public var isAudioFile: Bool {
         return Constants.supportedAudioFormats.contains(pathExtension.lowercased())
     }
     
-    var isVideoFile: Bool {
+    public var isVideoFile: Bool {
         return Constants.supportedVideoFormats.contains(pathExtension.lowercased())
     }
 }
 
 // MARK: - Date Extensions
 extension Date {
-    var timeAgo: String {
+    public var timeAgo: String {
         let formatter = RelativeDateTimeFormatter()
         formatter.unitsStyle = .abbreviated
         return formatter.localizedString(for: self, relativeTo: Date())
     }
     
-    var chatTimestamp: String {
+    public var chatTimestamp: String {
         let formatter = DateFormatter()
         formatter.dateStyle = .none
         formatter.timeStyle = .short
@@ -86,7 +86,7 @@ extension NSColor {
 
 // MARK: - Result Extensions
 extension Result {
-    var isSuccess: Bool {
+    public var isSuccess: Bool {
         switch self {
         case .success:
             return true
@@ -95,7 +95,7 @@ extension Result {
         }
     }
     
-    var isFailure: Bool {
+    public var isFailure: Bool {
         return !isSuccess
     }
 }

@@ -1,6 +1,6 @@
 import Foundation
 
-enum AIAgentError: Error, LocalizedError {
+public enum AIAgentError: Error, LocalizedError {
     case noAPIKey
     case noData
     case invalidResponse
@@ -11,7 +11,7 @@ enum AIAgentError: Error, LocalizedError {
     case unsupportedFileType(String)
     case invalidInput(String)
     
-    var errorDescription: String? {
+    public var errorDescription: String? {
         switch self {
         case .noAPIKey:
             return Constants.ErrorMessages.noAPIKey
@@ -34,7 +34,7 @@ enum AIAgentError: Error, LocalizedError {
         }
     }
     
-    var recoverySuggestion: String? {
+    public var recoverySuggestion: String? {
         switch self {
         case .noAPIKey:
             return "Please set your API key in the configuration or environment variables."
