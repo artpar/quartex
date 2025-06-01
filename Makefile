@@ -137,7 +137,22 @@ dev: clean lint test
 # Build for release
 release: clean lint test
 	@echo "🚀 Building release version..."
+	@mkdir -p $(MACOS_DIR)
+	@mkdir -p $(RESOURCES_DIR)
 	@swiftc $(SWIFT_FLAGS) -O -o $(MACOS_DIR)/$(APP_NAME) $(SWIFT_FILES)
+	@cp Info.plist $(CONTENTS_DIR)/
+	@if [ -f config.json ]; then \
+		echo "📄 Copying config.json..."; \
+		cp config.json $(RESOURCES_DIR)/; \
+	elif [ -f config.json.example ]; then \
+		echo "📄 Copying config.json.example as config.json..."; \
+		cp config.json.example $(RESOURCES_DIR)/config.json; \
+	else \
+		echo "⚠️  No config file found. Creating minimal config..."; \
+		echo '{"llm":{"provider":"anthropic","apiKey":"","model":"claude-3-sonnet-20240229"},"features":{"streaming":true}}' > $(RESOURCES_DIR)/config.json; \
+	fi
+	@echo "📝 Signing with entitlements..."
+	@codesign --force --sign - --entitlements $(ENTITLEMENTS_FILE) $(BUNDLE_NAME)
 	@echo "✅ Release build complete"
 
 # Generate test report
