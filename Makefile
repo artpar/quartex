@@ -27,13 +27,22 @@ COVERAGE_FLAGS = -profile-generate -profile-coverage-mapping
 all: $(BUNDLE_NAME)
 
 # Build the main application
-$(BUNDLE_NAME): $(SWIFT_FILES) Info.plist config.json $(ENTITLEMENTS_FILE)
+$(BUNDLE_NAME): $(SWIFT_FILES) Info.plist $(ENTITLEMENTS_FILE)
 	@echo "🔨 Building $(APP_NAME)..."
 	@mkdir -p $(MACOS_DIR)
 	@mkdir -p $(RESOURCES_DIR)
 	@swiftc $(SWIFT_FLAGS) -o $(MACOS_DIR)/$(APP_NAME) $(SWIFT_FILES)
 	@cp Info.plist $(CONTENTS_DIR)/
-	@cp config.json $(RESOURCES_DIR)/
+	@if [ -f config.json ]; then \
+		echo "📄 Copying config.json..."; \
+		cp config.json $(RESOURCES_DIR)/; \
+	elif [ -f config.json.example ]; then \
+		echo "📄 Copying config.json.example as config.json..."; \
+		cp config.json.example $(RESOURCES_DIR)/config.json; \
+	else \
+		echo "⚠️  No config file found. Creating minimal config..."; \
+		echo '{"llm":{"provider":"anthropic","apiKey":"","model":"claude-3-sonnet-20240229"},"features":{"streaming":true}}' > $(RESOURCES_DIR)/config.json; \
+	fi
 	@echo "📝 Signing with entitlements..."
 	@codesign --force --sign - --entitlements $(ENTITLEMENTS_FILE) $(BUNDLE_NAME)
 	@echo "✅ Build complete: $(BUNDLE_NAME)"
