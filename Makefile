@@ -179,6 +179,66 @@ security-scan:
 	@grep -r "api_key\|password\|secret" --include="*.swift" . || echo "No obvious secrets found"
 	@echo "✅ Security scan complete"
 
+# Enhanced Debug Cycle Commands
+build-verify: clean $(BUNDLE_NAME)
+	@echo "🔍 Verifying build with quick tests..."
+	@swift test --filter "SimpleMessageTests|SimpleUtilsTests" || echo "❌ Build verification failed"
+	@echo "✅ Build verification complete"
+
+ui-verify:
+	@echo "🖥️  Verifying UI components..."
+	@swift test --filter "UI" || echo "❌ UI verification failed"
+	@echo "✅ UI verification complete"
+
+gap-detection:
+	@echo "🔍 Detecting implementation gaps..."
+	@echo "Looking for placeholders and TODOs:"
+	@grep -r "TODO\|PLACEHOLDER\|NOT_IMPLEMENTED\|fatalError\|preconditionFailure" --include="*.swift" . || echo "✅ No obvious implementation gaps found"
+	@echo "Looking for empty function bodies:"
+	@grep -A 1 -r "func.*{$$" --include="*.swift" . | grep -B 1 "^--$$" || echo "✅ No empty functions found"
+
+verify-implementations:
+	@echo "🧪 Verifying all implementations actually work..."
+	@swift test --verbose 2>&1 | grep -E "(PASS|FAIL|SKIP)" | tee implementation_status.log
+	@echo "✅ Implementation verification complete - see implementation_status.log"
+
+implementation-report:
+	@echo "📋 Generating implementation status report..."
+	@echo "=== IMPLEMENTATION STATUS REPORT ===" > implementation_report.txt
+	@echo "Generated on: $$(date)" >> implementation_report.txt
+	@echo "" >> implementation_report.txt
+	@echo "=== TEST RESULTS ===" >> implementation_report.txt
+	@swift test --verbose 2>&1 | grep -E "(PASS|FAIL|SKIP)" >> implementation_report.txt || echo "No test results" >> implementation_report.txt
+	@echo "" >> implementation_report.txt
+	@echo "=== IMPLEMENTATION GAPS ===" >> implementation_report.txt
+	@grep -r "TODO\|PLACEHOLDER\|NOT_IMPLEMENTED" --include="*.swift" . >> implementation_report.txt || echo "No implementation gaps found" >> implementation_report.txt
+	@echo "" >> implementation_report.txt
+	@echo "=== FILE STATUS ===" >> implementation_report.txt
+	@find . -name "*.swift" -exec wc -l {} \; | sort -nr >> implementation_report.txt
+	@echo "✅ Implementation report generated: implementation_report.txt"
+
+quick-verify:
+	@echo "⚡ Quick verification (fast feedback loop)..."
+	@swift build && echo "✅ Build OK" || echo "❌ Build failed"
+	@swift test --filter "SimpleMessageTests" > /dev/null 2>&1 && echo "✅ Core tests OK" || echo "❌ Core tests failed"
+
+integration-smoke:
+	@echo "💨 Quick integration smoke test..."
+	@swift test --filter "MockLLMIntegrationTests" > /dev/null 2>&1 && echo "✅ Integration smoke OK" || echo "❌ Integration smoke failed"
+
+ui-workflow-test:
+	@echo "🖱️  Testing complete UI workflows..."
+	@swift test --filter "UserWorkflow" || echo "❌ UI workflow tests failed"
+	@echo "✅ UI workflow testing complete"
+
+component-health-check:
+	@echo "🏥 Checking component health..."
+	@echo "Checking for critical components:"
+	@test -f "Core/AIAgent/AIAgent.swift" && echo "✅ AIAgent exists" || echo "❌ AIAgent missing"
+	@test -f "Core/AIAgent/LLMClient.swift" && echo "✅ LLMClient exists" || echo "❌ LLMClient missing"
+	@test -f "UI/Components/ViewController.swift" && echo "✅ ViewController exists" || echo "❌ ViewController missing"
+	@echo "✅ Component health check complete"
+
 # Documentation generation
 docs:
 	@echo "📚 Generating documentation..."
@@ -213,6 +273,17 @@ help:
 	@echo "  lint             - Run code linting"
 	@echo "  format           - Format code"
 	@echo "  docs             - Generate documentation"
+	@echo ""
+	@echo "🔍 Debug & Verification:"
+	@echo "  build-verify     - Build + quick verification tests"
+	@echo "  ui-verify        - Verify UI components work"
+	@echo "  quick-verify     - Fast feedback loop (build + core tests)"
+	@echo "  gap-detection    - Find implementation gaps & TODOs"
+	@echo "  verify-implementations - Test all features actually work"
+	@echo "  implementation-report   - Generate comprehensive status report"
+	@echo "  integration-smoke       - Quick integration smoke test"
+	@echo "  ui-workflow-test        - Test complete UI workflows"
+	@echo "  component-health-check  - Verify critical components exist"
 	@echo ""
 	@echo "🚀 Release:"
 	@echo "  release          - Build optimized release version"

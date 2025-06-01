@@ -6,18 +6,19 @@
 ## Active Tasks
 
 ### High Priority
-- [ ] **Audio Input Implementation** - Speech framework integration for voice input
-- [ ] **File Upload Processing** - Drag & drop and file picker integration
-- [ ] **Unified Input Pipeline** - Coordinate multi-modal inputs through single interface
-- [ ] **Enhanced AudioProcessor** - Implement speech-to-text conversion
-- [ ] **Enhanced FileProcessor** - Support document parsing and image analysis
+- [ ] **CRITICAL: Dependency Research & Planning** - Research awesome-swift libraries for all Phase 2 features before implementation
+- [ ] **Audio Input Implementation** - Use AudioKit or AVFoundation for speech framework integration
+- [ ] **File Upload Processing** - Leverage FileKit or PathKit for enhanced drag & drop and file picker integration
+- [ ] **Unified Input Pipeline** - Coordinate multi-modal inputs through single interface using third-party coordination libraries
+- [ ] **Enhanced AudioProcessor** - Implement speech-to-text conversion using established audio processing libraries
+- [ ] **Enhanced FileProcessor** - Support document parsing and image analysis using Vision framework + third-party document libraries
 
 ### Medium Priority
-- [ ] **Camera/Screen Capture** - Video input and screen recording capabilities
-- [ ] **Enhanced VideoProcessor** - Video frame analysis and content extraction
-- [ ] **Input UI Components** - Audio recording controls, file drop zones
-- [ ] Create configuration UI for multi-modal settings
-- [ ] Add tests for multi-modal input processing
+- [ ] **Camera/Screen Capture** - Video input using AVFoundation + third-party camera libraries for enhanced capabilities
+- [ ] **Enhanced VideoProcessor** - Video frame analysis using Vision framework + established video processing libraries
+- [ ] **Input UI Components** - Audio recording controls using established UI component libraries, enhanced file drop zones
+- [ ] **Configuration UI** - Multi-modal settings using SnapKit for layouts and established form libraries
+- [ ] **Testing Multi-Modal Input** - Add tests for multi-modal input processing using established testing frameworks
 
 ### Low Priority
 - [ ] Add automated CI/CD pipeline
@@ -149,18 +150,36 @@
 └── god_controller_prompt.md            📁 Root level
 ```
 
+## Dependency Management Tasks
+
+### Pre-Implementation Research (CRITICAL FIRST STEP)
+- [ ] **Research Audio Libraries** - AudioKit, AVFoundation, Speech framework capabilities
+- [ ] **Research File Handling Libraries** - FileKit, PathKit, document parsing libraries
+- [ ] **Research UI Component Libraries** - SnapKit for layouts, Lottie for animations, drag/drop libraries
+- [ ] **Research Video Processing Libraries** - AVFoundation extensions, computer vision libraries
+- [ ] **Research Testing Libraries** - Enhanced testing frameworks, mock libraries, UI testing tools
+- [ ] **Package.swift Updates** - Add selected dependencies via Swift Package Manager
+- [ ] **Documentation** - Record library choices and rationales in CLAUDE.md
+
+### Library Integration Strategy
+- [ ] **Create dependency evaluation criteria** - Performance, maintenance, documentation, community
+- [ ] **Set up SPM package management** - Pin versions, handle conflicts, update strategy
+- [ ] **Create wrapper abstractions** - Abstract third-party APIs for easier testing and swapping
+
 ## Next Steps
-1. **Start Phase 2 Multi-Modal Development** - Begin implementing audio input processing
-2. **AudioProcessor Implementation** - Speech framework integration for voice input
-3. **FileProcessor Enhancement** - Add support for document parsing and image analysis
-4. **Input Pipeline Coordination** - Create unified multi-modal input routing system
-5. **UI Components for Multi-Modal** - Audio recording controls and file drop zones
+1. **FIRST: Complete dependency research** - Must research awesome-swift before implementing any features
+2. **Start Phase 2 Multi-Modal Development** - Begin implementing audio input processing with selected libraries
+3. **AudioProcessor Implementation** - Speech framework integration using researched audio libraries
+4. **FileProcessor Enhancement** - Add support for document parsing using selected libraries
+5. **Input Pipeline Coordination** - Create unified multi-modal input routing system
+6. **UI Components for Multi-Modal** - Audio recording controls and file drop zones using UI libraries
 
 ## Blockers
 - None currently
 
 ## Notes
 - **🎉 PHASE 1 SUCCESSFULLY COMPLETED** - All core infrastructure finished and tested
+- **📋 NEW REQUIREMENT: Dependency-First Development** - All Phase 2 features must leverage third-party Swift libraries
 - Project has stable, fully-tested foundation ready for multi-modal expansion
 - **🎉 MAJOR MILESTONE: Zero failing tests achieved** 
   - Complete test suite with 72 tests passing (0 failures)
@@ -169,9 +188,10 @@
   - Enhanced build system with 20+ testing commands
 - **Real-time streaming chat interface** working with Claude API integration
 - **Complete tool system** with file operations functional
-- **Ready for Phase 2 Multi-Modal Development** - Audio, file, and video input processing
+- **Ready for Phase 2 Multi-Modal Development** - Audio, file, and video input processing with third-party libraries
+- **CRITICAL: Research awesome-swift first** - Must evaluate existing libraries before any custom implementation
 - Build system working correctly with comprehensive test coverage
-- TODO management system active and tracking Phase 2 progress
+- TODO management system active and tracking Phase 2 progress with dependency-first approach
 
 ## Testing Commands Available (ALL WORKING! ✅)
 ```bash
