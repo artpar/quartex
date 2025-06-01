@@ -41,7 +41,7 @@ jobs:
       
     - name: Create distribution packages
       run: |
-        APP_NAME="HelloWorldApp"
+        APP_NAME="Quartex"
         VERSION=${{ steps.get_version.outputs.VERSION }}
         
         # App bundle should already be built by make release
@@ -92,8 +92,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./HelloWorldApp-${{ steps.get_version.outputs.VERSION }}.dmg
-        asset_name: HelloWorldApp-${{ steps.get_version.outputs.VERSION }}.dmg
+        asset_path: ./Quartex-${{ steps.get_version.outputs.VERSION }}.dmg
+        asset_name: Quartex-${{ steps.get_version.outputs.VERSION }}.dmg
         asset_content_type: application/octet-stream
         
     - name: Upload ZIP to Release
@@ -102,6 +102,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./HelloWorldApp-${{ steps.get_version.outputs.VERSION }}.zip
-        asset_name: HelloWorldApp-${{ steps.get_version.outputs.VERSION }}.zip
+        asset_path: ./Quartex-${{ steps.get_version.outputs.VERSION }}.zip
+        asset_name: Quartex-${{ steps.get_version.outputs.VERSION }}.zip
         asset_content_type: application/zip

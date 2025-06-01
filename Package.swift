@@ -2,14 +2,14 @@
 import PackageDescription
 
 let package = Package(
-    name: "AIAgent",
+    name: "Quartex",
     platforms: [
         .macOS(.v11)
     ],
     products: [
         .executable(
-            name: "AIAgent",
-            targets: ["AIAgent"]
+            name: "Quartex",
+            targets: ["Quartex"]
         ),
     ],
     dependencies: [
@@ -17,7 +17,7 @@ let package = Package(
     ],
     targets: [
         .executableTarget(
-            name: "AIAgent",
+            name: "Quartex",
             dependencies: [],
             path: ".",
             sources: [
@@ -41,8 +41,8 @@ let package = Package(
             ]
         ),
         .testTarget(
-            name: "AIAgentTests",
-            dependencies: ["AIAgent"],
+            name: "QuartexTests",
+            dependencies: ["Quartex"],
             path: "Tests"
         ),
     ]

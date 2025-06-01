@@ -1,4 +1,4 @@
-APP_NAME = HelloWorldApp
+APP_NAME = Quartex
 BUNDLE_NAME = $(APP_NAME).app
 CONTENTS_DIR = $(BUNDLE_NAME)/Contents
 MACOS_DIR = $(CONTENTS_DIR)/MacOS
@@ -15,7 +15,7 @@ TEST_MACOS_DIR = $(TEST_CONTENTS_DIR)/MacOS
 
 # Compiler flags
 SWIFT_FLAGS = -target x86_64-apple-macosx11.0 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
-ENTITLEMENTS_FILE = HelloWorldApp.entitlements
+ENTITLEMENTS_FILE = Quartex.entitlements
 TEST_SWIFT_FLAGS = $(SWIFT_FLAGS) -enable-testing -I /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks
 
 # Coverage flags

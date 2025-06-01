@@ -77,5 +77,5 @@ jobs:
         name: build-artifacts
         path: |
           .build/release/
-          *.app
+          Quartex.app
         retention-days: 7

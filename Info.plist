@@ -5,15 +5,15 @@
     <key>CFBundleDevelopmentRegion</key>
     <string>$(DEVELOPMENT_LANGUAGE)</string>
     <key>CFBundleExecutable</key>
-    <string>HelloWorldApp</string>
+    <string>Quartex</string>
     <key>CFBundleIconFile</key>
     <string></string>
     <key>CFBundleIdentifier</key>
-    <string>com.example.HelloWorldApp</string>
+    <string>com.example.Quartex</string>
     <key>CFBundleInfoDictionaryVersion</key>
     <string>6.0</string>
     <key>CFBundleName</key>
-    <string>HelloWorldApp</string>
+    <string>Quartex</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleShortVersionString</key>
