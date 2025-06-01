@@ -1,5 +1,5 @@
 {
-  "anthropic_api_key": "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",
+  "anthropic_api_key": "sk-ant-api03-YOUR_API_KEY_HERE",
   "llm_endpoint": "https://api.anthropic.com/v1/messages",
   "model": "claude-3-5-sonnet-20241022",
   "max_tokens": 4000,

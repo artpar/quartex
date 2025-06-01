@@ -2,3 +2,6 @@
 .DS_Store
 .build/
 .vscode/
+
+# Configuration files with secrets
+config.json
