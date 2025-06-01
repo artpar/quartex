@@ -2,7 +2,7 @@
 
 An AI-first macOS application that transforms multi-modal user inputs into intelligent actions through LLM-powered decision making.
 
-[![Build Status](https://github.com/username/quartex/workflows/CI/badge.svg)](https://github.com/username/quartex/actions)
+[![Build Status](https://github.com/artpar/quartex/workflows/CI/badge.svg)](https://github.com/artpar/quartex/actions)
 [![Swift Version](https://img.shields.io/badge/swift-5.9+-orange.svg)](https://swift.org)
 [![Platform](https://img.shields.io/badge/platform-macOS%2013.0+-lightgrey.svg)](https://developer.apple.com/macos/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
@@ -90,7 +90,7 @@ Quartex follows a modular, layered architecture designed for maintainability and
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/username/quartex.git
+   git clone https://github.com/artpar/quartex.git
    cd quartex
    ```
 
