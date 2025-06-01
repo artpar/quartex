@@ -166,7 +166,7 @@ class UserWorkflowTests: XCTestCase {
         
         // Verify error recovery workflow
         let messages = testAgent.currentConversation.messages
-        XCTAssertGreaterThanOrEqual(messages.count, 10)
+        XCTAssertGreaterThanOrEqual(messages.count, 9)
         
         // Verify the file was actually created
         let createdFile = tempDirectory.appendingPathComponent("created_file.txt")

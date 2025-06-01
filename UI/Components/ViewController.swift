@@ -95,7 +95,7 @@ class ViewController: NSViewController {
     }
     
     private func addWelcomeMessage() {
-        let welcomeText = "Welcome to AI Assistant! I can help you with various tasks including file operations, answering questions, and more. What would you like to do?"
+        let welcomeText = "Welcome to AI Assistant! I can help you with various tasks, answer questions, and assist with your work.\n\nSimply type your message below and I'll respond. I can help with:\n• Answering questions\n• Problem solving\n• Code assistance\n• General conversation\n\nWhat would you like to talk about?"
         addMessageBubble(text: welcomeText, isUser: false)
     }
     
@@ -128,6 +128,7 @@ class ViewController: NSViewController {
             }
         }
     }
+    
     
     private func addMessageBubble(text: String, isUser: Bool) {
         let bubbleView = createMessageBubble(text: text, isUser: isUser)

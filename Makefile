@@ -14,7 +14,8 @@ TEST_CONTENTS_DIR = $(TEST_BUNDLE_NAME)/Contents
 TEST_MACOS_DIR = $(TEST_CONTENTS_DIR)/MacOS
 
 # Compiler flags
-SWIFT_FLAGS = -target x86_64-apple-macosx10.15 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
+SWIFT_FLAGS = -target x86_64-apple-macosx11.0 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
+ENTITLEMENTS_FILE = HelloWorldApp.entitlements
 TEST_SWIFT_FLAGS = $(SWIFT_FLAGS) -enable-testing -I /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks
 
 # Coverage flags
@@ -26,13 +27,15 @@ COVERAGE_FLAGS = -profile-generate -profile-coverage-mapping
 all: $(BUNDLE_NAME)
 
 # Build the main application
-$(BUNDLE_NAME): $(SWIFT_FILES) Info.plist config.json
+$(BUNDLE_NAME): $(SWIFT_FILES) Info.plist config.json $(ENTITLEMENTS_FILE)
 	@echo "🔨 Building $(APP_NAME)..."
 	@mkdir -p $(MACOS_DIR)
 	@mkdir -p $(RESOURCES_DIR)
 	@swiftc $(SWIFT_FLAGS) -o $(MACOS_DIR)/$(APP_NAME) $(SWIFT_FILES)
 	@cp Info.plist $(CONTENTS_DIR)/
 	@cp config.json $(RESOURCES_DIR)/
+	@echo "📝 Signing with entitlements..."
+	@codesign --force --sign - --entitlements $(ENTITLEMENTS_FILE) $(BUNDLE_NAME)
 	@echo "✅ Build complete: $(BUNDLE_NAME)"
 
 # Run the application

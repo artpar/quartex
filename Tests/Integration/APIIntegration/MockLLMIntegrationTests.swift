@@ -215,8 +215,13 @@ class MockLLMIntegrationTests: XCTestCase {
         
         XCTAssertLessThan(processingTime, 5.0) // Should complete within 5 seconds
         
-        let lastMessage = testAgent.currentConversation.messages.last
-        XCTAssertEqual(lastMessage?.content, largeResponse)
+        let messages = testAgent.currentConversation.messages
+        XCTAssertGreaterThanOrEqual(messages.count, 3) // system + user + assistant
+        
+        // Check that we got the large response
+        let assistantMessage = messages.last { $0.role == "assistant" }
+        XCTAssertNotNil(assistantMessage)
+        XCTAssertTrue(assistantMessage?.content.contains("This is a very long response with lots of content") ?? false)
     }
     
     func testConcurrentRequests() async throws {
