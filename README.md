@@ -1,6 +1,6 @@
 # Quartex
 
-An AI-first macOS application that transforms multi-modal user inputs into intelligent actions through LLM-powered decision making.
+A Smart Desktop Assistant for macOS that progressively automates productivity tasks through conversational AI.
 
 [![Build Status](https://github.com/artpar/quartex/workflows/CI/badge.svg)](https://github.com/artpar/quartex/actions)
 [![Swift Version](https://img.shields.io/badge/swift-5.9+-orange.svg)](https://swift.org)
@@ -9,42 +9,57 @@ An AI-first macOS application that transforms multi-modal user inputs into intel
 
 ## Overview
 
-Quartex is a revolutionary macOS application that serves as a universal interface where every functionality is delegated to an AI agent powered by large language models. Instead of traditional UI interactions, users communicate through natural language, and the AI agent intelligently interprets requests and executes appropriate actions through an extensible tool system.
+Quartex is a Smart Desktop Assistant that solves real macOS productivity problems through conversational AI. Rather than being a generic interface, each release delivers immediate utility - from intelligent file management to automated workflows. Users get measurable time savings and productivity improvements with every phase.
 
 ### Key Concepts
 
-- **Agent-Centric Design**: A single AIAgent orchestrates all interactions
-- **LLM-Driven Decision Making**: Every functionality decision made through AI completions
-- **Multi-Modal Input Processing**: Support for text, audio, video, and file inputs
-- **Extensible Tool System**: Modular tools that the AI can invoke to perform actions
-- **Real-time Streaming**: Character-by-character streaming responses for immediate feedback
+- **Progressive Utility**: Each phase delivers immediate, measurable productivity gains
+- **LLM-Enhanced Automation**: AI understands intent and automates complex desktop tasks
+- **Multi-Modal Processing**: Handle text, audio, visual, and file-based interactions
+- **Productivity-Focused Tools**: Tools designed specifically for common workflow automation
+- **Third-Party Integration**: Leverage existing Swift libraries and macOS frameworks
 
 ## Features
 
-### ✅ Current Features (Phase 1 Complete)
+### ✅ Phase 1: File Intelligence Assistant (Complete)
 
-- **Intelligent Chat Interface**: Real-time streaming chat with AI agent
-- **Anthropic Claude Integration**: Seamless API integration with proper authentication
-- **Advanced Tool System**: File operations (read/write/create/list directories)
-- **Multi-turn Conversations**: Context retention across conversation sessions
-- **Real-time Streaming UI**: Character-by-character display with visual feedback
-- **Comprehensive Error Handling**: Robust error management and logging
-- **Extensive Test Coverage**: 72 tests covering unit, integration, performance, and security
+**User Value**: Smart file operations through natural language
+- **Conversational File Management**: "Find all PDFs from last month"
+- **Intelligent Organization**: "Organize my Downloads folder by type"
+- **Content-Aware Operations**: "Create a summary of these documents"
+- **Real-time AI Interaction**: Streaming responses with immediate feedback
+- **Robust Foundation**: 72 tests, comprehensive error handling, secure API integration
 
-### 🚧 In Development (Phase 2)
+**Time Savings**: Eliminates complex file searches and repetitive organization tasks
 
-- **Audio Input Processing**: Speech-to-text using macOS Speech framework
-- **File Upload & Processing**: Drag-and-drop file handling with content analysis
-- **Camera Integration**: Real-time video capture and frame analysis
-- **Unified Input Pipeline**: Seamless processing of all input modalities
+### 🚧 Phase 2: Desktop Workflow Assistant (In Development)
 
-### 🔮 Planned Features (Phase 3-4)
+**User Value**: Automate common desktop productivity tasks
+- **Audio Transcription**: "Transcribe this voice memo to text" (AudioKit integration)
+- **Visual Analysis**: "What's in this screenshot?" (Vision framework + AI)
+- **Document Processing**: "Extract key points from this PDF" (Content analysis)
+- **Quick Capture Workflows**: Screenshot → AI analysis → actionable summary
 
-- **Plugin Architecture**: Third-party extensibility through secure plugins
-- **Advanced Context Management**: Intelligent context window optimization
-- **Tool Chaining**: Automated workflow creation and execution
-- **Performance Optimization**: Caching and streaming enhancements
-- **Security Hardening**: Advanced sandboxing and permission management
+**Target Time Savings**: 30+ minutes daily on transcription and document processing
+
+### 🔮 Phase 3: Application Integration Hub
+
+**User Value**: Control and coordinate other macOS apps
+- **App Automation**: "Open Spotify and play my focus playlist"
+- **Cross-App Workflows**: Move data seamlessly between applications
+- **System Integration**: Smart calendar, reminders, and notification management
+- **Intelligent Suggestions**: Context-aware productivity recommendations
+
+**Target Benefit**: Single interface to orchestrate entire digital workspace
+
+### 🔮 Phase 4: Predictive Productivity Partner
+
+**User Value**: Proactive assistance and workflow optimization
+- **Pattern Recognition**: Learn habits and suggest workflow improvements
+- **Context Switching**: Intelligent workspace state management
+- **Performance Analytics**: Productivity insights and optimization recommendations
+
+**Target Benefit**: 25%+ productivity improvement through predictive assistance
 
 ## Architecture
 

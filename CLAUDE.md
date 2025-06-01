@@ -1,8 +1,8 @@
-# AI-First macOS Application - Claude Context
+# Smart Desktop Assistant - Claude Context
 
 ## Project Overview
 
-This is an AI-first macOS application built in Swift that transforms user inputs (text, audio, video) into actions through LLM-powered decision making. The application serves as a universal interface where every functionality is delegated to an AI agent that can utilize various tools and plugins.
+Quartex is a Smart Desktop Assistant for macOS that progressively automates and assists with desktop productivity tasks through conversational AI. Rather than being a generic AI interface, it focuses on solving specific macOS productivity problems using LLMs and third-party libraries, with each phase delivering immediate utility to users.
 
 ## Current State
 
@@ -27,11 +27,11 @@ This is an AI-first macOS application built in Swift that transforms user inputs
 ## Architecture Overview
 
 ### Core Design Principles
-1. **Agent-Centric**: Single AIAgent orchestrates all interactions
-2. **LLM-Driven**: Every functionality decision made through /completions API
-3. **Multi-Modal**: Support for text, audio, video, and file inputs
-4. **Tool-Based**: Extensible system of tools/functions the AI can invoke
-5. **Plugin Architecture**: Third-party extensibility through plugins
+1. **Progressive Utility**: Each phase delivers immediate, measurable value to users
+2. **LLM-Enhanced**: Use AI to understand intent and automate complex desktop tasks
+3. **Multi-Modal**: Support for text, audio, visual, and file-based interactions
+4. **Tool-Based**: Extensible system focused on productivity automation
+5. **Third-Party Leverage**: Maximize use of existing Swift libraries and frameworks
 
 ### System Architecture
 
@@ -174,31 +174,37 @@ protocol AIPlugin {
 
 ## Implementation Phases
 
-### Phase 1: Core Infrastructure ✅ COMPLETED
-- ✅ Replace current UI with basic chat interface
-- ✅ Implement LLM client with /completions API
-- ✅ Create basic tool system (file operations, system commands)
-- ✅ Set up conversation management
-- ✅ Comprehensive test suite with 72 tests passing
-- ✅ Real-time streaming UI with character-by-character display
+### Phase 1: File Intelligence Assistant ✅ COMPLETED
+**Immediate Value**: Smart file operations through natural language
+- ✅ Conversational file management: "Find all PDFs from last month"
+- ✅ Intelligent file operations through LLM understanding
+- ✅ Real-time streaming chat interface for file interactions
+- ✅ Complete tool system with file read/write/create/list operations
+- ✅ Comprehensive test suite (72 tests, 0 failures)
+- **User Value Delivered**: Eliminates complex file searches and manual organization
 
-### Phase 2: Multi-Modal Input 🚧 IN PROGRESS
-- 🔄 Add audio input with Speech framework
-- 🔄 Implement file upload and processing
-- 🔄 Add camera/screen capture integration
-- 🔄 Create unified input processing pipeline
+### Phase 2: Desktop Workflow Assistant 🚧 IN PROGRESS
+**Immediate Value**: Automate common desktop productivity tasks
+- 🎯 **Audio transcription**: Speech-to-text using AudioKit/AVFoundation
+- 🎯 **Screen capture analysis**: AI-powered screenshot understanding
+- 🎯 **Document processing**: Extract and summarize content from PDFs, images
+- 🎯 **Quick capture workflows**: One-click capture → AI analysis → actionable output
+- **Target User Value**: Save 30+ minutes daily on transcription and document processing
 
-### Phase 3: Advanced Features
-- Implement plugin system
-- Add advanced context management
-- Create tool chaining and workflow automation
-- Implement streaming UI updates
+### Phase 3: Application Integration Hub
+**Immediate Value**: Control and coordinate other macOS apps
+- 🔮 **App automation**: "Open Spotify and play my focus playlist"
+- 🔮 **Cross-app workflows**: Coordinate data between applications
+- 🔮 **System integration**: Calendar, reminders, notifications
+- 🔮 **Smart suggestions**: Context-aware productivity recommendations
+- **Target User Value**: Single interface to orchestrate entire digital workspace
 
-### Phase 4: Polish & Optimization
-- Performance optimization and caching
-- Security hardening and sandboxing
-- Advanced UI features and customization
-- Comprehensive testing and error handling
+### Phase 4: Predictive Productivity Partner
+**Immediate Value**: Proactive assistance and workflow optimization
+- 🔮 **Pattern recognition**: Learn user habits and suggest optimizations
+- 🔮 **Context switching**: Intelligent workspace state management
+- 🔮 **Performance insights**: Productivity analytics and recommendations
+- **Target User Value**: 25%+ productivity improvement through predictive assistance
 
 ## Development Guidelines
 
