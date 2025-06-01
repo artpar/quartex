@@ -202,11 +202,94 @@ protocol AIPlugin {
 
 ## Development Guidelines
 
+### Dependency Management & Third-Party Libraries
+
+**CRITICAL PRINCIPLE: Always leverage existing Swift libraries and dependencies instead of implementing from scratch.**
+
+#### Pre-Implementation Research
+Before implementing any feature or functionality, ALWAYS:
+
+1. **Research awesome-swift first**: Check https://github.com/matteocrippa/awesome-swift for relevant libraries
+2. **Evaluate Swift Package Manager ecosystem**: Search for established, well-maintained packages
+3. **Consider Apple frameworks**: Use built-in frameworks when available (Foundation, AppKit, etc.)
+4. **Prioritize battle-tested solutions**: Prefer libraries with active maintenance, good documentation, and community adoption
+
+#### Recommended Categories & Libraries
+
+**Networking & HTTP:**
+- Alamofire - HTTP networking library
+- URLSession (built-in) for simple requests
+- WebSocket frameworks for real-time communication
+
+**JSON & Data Parsing:**
+- Swift's built-in Codable
+- SwiftyJSON for complex JSON handling
+- ObjectMapper for advanced mapping
+
+**UI & User Experience:**
+- SnapKit for Auto Layout
+- Lottie for animations
+- Charts for data visualization
+- Kingfisher for image loading/caching
+
+**Audio/Video Processing:**
+- AVFoundation (built-in) for basic A/V
+- AudioKit for advanced audio processing
+- VideoToolbox for video manipulation
+
+**Database & Persistence:**
+- Core Data (built-in) for complex data models
+- SQLite.swift for direct SQL access
+- Realm for object database
+
+**Async & Reactive Programming:**
+- Combine (built-in) for reactive streams
+- RxSwift for complex reactive patterns
+- AsyncAlgorithms for advanced async operations
+
+**Security & Cryptography:**
+- CryptoKit (built-in) for modern crypto
+- KeychainAccess for secure storage
+- CommonCrypto for legacy compatibility
+
+**Utilities & Extensions:**
+- SwifterSwift for common extensions
+- Then for cleaner initialization syntax
+- Result type (now built-in) for error handling
+
+#### Integration Strategy
+
+1. **Add via Swift Package Manager**: Use SPM for all dependencies when possible
+2. **Document choices**: Record why specific libraries were chosen in CLAUDE.md
+3. **Version management**: Pin to specific versions for stability
+4. **Minimize dependencies**: Avoid multiple libraries for same functionality
+5. **Regular updates**: Keep dependencies current but test thoroughly
+
+#### Implementation Workflow
+
+```swift
+// BEFORE implementing custom solution:
+// 1. Check awesome-swift list
+// 2. Search Swift Package Index
+// 3. Evaluate existing solutions
+// 4. Only implement custom if no suitable library exists
+
+// EXAMPLE: Instead of custom HTTP client
+import Alamofire
+
+// EXAMPLE: Instead of custom JSON parsing
+import Foundation // Use Codable
+
+// EXAMPLE: Instead of custom image loading
+import Kingfisher
+```
+
 ### Code Style
 - Follow Swift naming conventions
 - Use async/await for asynchronous operations
 - Implement proper error handling with Result types
 - Use dependency injection for testability
+- **Leverage third-party libraries** instead of reinventing wheels
 
 ### Security Considerations
 - Sandbox tool execution
