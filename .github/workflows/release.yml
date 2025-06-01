@@ -1,0 +1,107 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-and-release:
+    runs-on: macos-latest
+    permissions:
+      contents: write
+    
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Select Xcode version
+      run: sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer
+      
+    - name: Cache Swift packages
+      uses: actions/cache@v4
+      with:
+        path: |
+          .build
+          ~/Library/Developer/Xcode/DerivedData
+        key: ${{ runner.os }}-spm-${{ hashFiles('Package.swift') }}
+        restore-keys: |
+          ${{ runner.os }}-spm-
+    
+    - name: Get version from tag
+      id: get_version
+      run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+      
+    - name: Build release
+      run: make release
+      
+    - name: Run tests
+      run: make test
+      
+    - name: Create distribution packages
+      run: |
+        APP_NAME="HelloWorldApp"
+        VERSION=${{ steps.get_version.outputs.VERSION }}
+        
+        # App bundle should already be built by make release
+        if [ ! -d "${APP_NAME}.app" ]; then
+          echo "❌ App bundle not found after build"
+          exit 1
+        fi
+        
+        # Create DMG
+        mkdir -p dmg
+        cp -r "${APP_NAME}.app" dmg/
+        hdiutil create -volname "${APP_NAME}-${VERSION}" -srcfolder dmg -ov -format UDZO "${APP_NAME}-${VERSION}.dmg"
+        
+        # Create ZIP
+        zip -r "${APP_NAME}-${VERSION}.zip" "${APP_NAME}.app"
+        
+    - name: Generate changelog
+      id: changelog
+      run: |
+        if [ -f "CHANGELOG.md" ]; then
+          # Extract changelog for this version
+          awk '/^## \[?'${{ steps.get_version.outputs.VERSION }}'\]?/{flag=1; next} /^## \[?[0-9]/{flag=0} flag' CHANGELOG.md > release_notes.md
+        else
+          # Generate simple changelog from git commits
+          git log --pretty=format:"- %s" $(git describe --tags --abbrev=0 HEAD^)..HEAD > release_notes.md
+        fi
+        
+        # If changelog is empty, add default content
+        if [ ! -s release_notes.md ]; then
+          echo "- Release ${{ steps.get_version.outputs.VERSION }}" > release_notes.md
+        fi
+        
+    - name: Create GitHub Release
+      uses: actions/create-release@v1
+      id: create_release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ steps.get_version.outputs.VERSION }}
+        release_name: Release ${{ steps.get_version.outputs.VERSION }}
+        body_path: release_notes.md
+        draft: false
+        prerelease: ${{ contains(steps.get_version.outputs.VERSION, '-') }}
+        
+    - name: Upload DMG to Release
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./HelloWorldApp-${{ steps.get_version.outputs.VERSION }}.dmg
+        asset_name: HelloWorldApp-${{ steps.get_version.outputs.VERSION }}.dmg
+        asset_content_type: application/octet-stream
+        
+    - name: Upload ZIP to Release
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./HelloWorldApp-${{ steps.get_version.outputs.VERSION }}.zip
+        asset_name: HelloWorldApp-${{ steps.get_version.outputs.VERSION }}.zip
+        asset_content_type: application/zip
