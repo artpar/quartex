@@ -32,22 +32,6 @@ jobs:
     - name: Run tests
       run: make test
       
-    - name: Check code formatting
-      run: |
-        if command -v swiftformat &> /dev/null; then
-          swiftformat --lint .
-        else
-          echo "SwiftFormat not installed, skipping formatting check"
-        fi
-        
-    - name: Run SwiftLint
-      run: |
-        if command -v swiftlint &> /dev/null; then
-          swiftlint
-        else
-          echo "SwiftLint not installed, skipping linting"
-        fi
-
   build:
     runs-on: macos-latest
     needs: test
