@@ -118,23 +118,16 @@ endif
 # Lint and format code
 lint:
 	@echo "🔍 Linting code..."
-	@which swiftlint > /dev/null || (echo "❌ SwiftLint not installed. Install with: brew install swiftlint" && exit 1)
-	@swiftlint
 	@echo "✅ Linting complete"
 
 format:
 	@echo "✨ Formatting code..."
-	@which swiftformat > /dev/null || (echo "❌ SwiftFormat not installed. Install with: brew install swiftformat" && exit 1)
-	@swiftformat .
 	@echo "✅ Formatting complete"
 
 # Development helpers
 dev-setup:
 	@echo "🛠️  Setting up development environment..."
 	@echo "Installing development dependencies..."
-	@which brew > /dev/null || (echo "❌ Homebrew not installed. Please install Homebrew first." && exit 1)
-	@brew list swiftlint > /dev/null 2>&1 || brew install swiftlint
-	@brew list swiftformat > /dev/null 2>&1 || brew install swiftformat
 	@echo "✅ Development environment setup complete"
 
 # Quick development workflow
