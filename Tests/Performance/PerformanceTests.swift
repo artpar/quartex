@@ -1,5 +1,5 @@
 import XCTest
-@testable import AIAgent
+@testable import Quartex
 
 class PerformanceTests: XCTestCase {
     

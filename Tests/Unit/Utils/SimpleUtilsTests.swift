@@ -1,6 +1,6 @@
 import XCTest
 import Foundation
-@testable import AIAgent
+@testable import Quartex
 
 class SimpleUtilsTests: XCTestCase {
     

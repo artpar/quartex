@@ -1,5 +1,5 @@
 import XCTest
-@testable import AIAgent
+@testable import Quartex
 
 class MockLLMIntegrationTests: XCTestCase {
     
@@ -203,7 +203,7 @@ class MockLLMIntegrationTests: XCTestCase {
     
     // MARK: - Performance Integration Tests
     
-    func testLargeResponseHandling() async {
+    func testLargeResponseHandling() async throws {
         let largeResponse = String(repeating: "This is a very long response with lots of content. ", count: 1000)
         mockClient.setNextResponse(largeResponse)
         
@@ -214,6 +214,9 @@ class MockLLMIntegrationTests: XCTestCase {
         let processingTime = Date().timeIntervalSince(startTime)
         
         XCTAssertLessThan(processingTime, 5.0) // Should complete within 5 seconds
+        
+        // Wait a bit for async operations to complete
+        try await Task.sleep(nanoseconds: 100_000_000) // 0.1 seconds
         
         let messages = testAgent.currentConversation.messages
         XCTAssertGreaterThanOrEqual(messages.count, 3) // system + user + assistant

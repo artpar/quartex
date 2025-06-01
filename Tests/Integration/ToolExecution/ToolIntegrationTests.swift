@@ -1,5 +1,5 @@
 import XCTest
-@testable import AIAgent
+@testable import Quartex
 import Foundation
 
 class ToolIntegrationTests: XCTestCase {

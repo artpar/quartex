@@ -1,6 +1,6 @@
 import XCTest
 import Foundation
-@testable import AIAgent
+@testable import Quartex
 
 // Simple standalone tests that don't depend on complex framework
 class SimpleMessageTests: XCTestCase {
