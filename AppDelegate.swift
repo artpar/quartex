@@ -9,14 +9,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSApp.setActivationPolicy(.regular)
         
         window = NSWindow(
-            contentRect: NSRect(x: 100, y: 100, width: 600, height: 400),
+            contentRect: NSRect(x: 100, y: 100, width: 800, height: 600),
             styleMask: [.titled, .closable, .miniaturizable, .resizable],
             backing: .buffered,
             defer: false
         )
         
         print("Window created")
-        window.title = "Hello World App"
+        window.title = "AI Assistant"
         window.isReleasedWhenClosed = false
         
         let viewController = ViewController()

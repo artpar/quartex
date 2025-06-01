@@ -234,3 +234,27 @@ protocol AIPlugin {
 5. **User experience** should prioritize responsiveness and clarity
 
 This architecture ensures maintainability through clear separation of concerns, extensibility via the plugin system, and scalability through modular design.
+
+## TODO Management
+
+This project uses a TODO.md file to track development progress and maintain a working plan. Every Claude CLI session should:
+
+1. **Read TODO.md** at the start to understand current priorities and context
+2. **Update TODO.md** as tasks are completed, modified, or new requirements emerge
+3. **Maintain CLAUDE.md** with any architectural changes or new insights
+4. **Keep project state synchronized** between documentation and actual codebase
+
+### TODO.md Structure
+- **Current Phase**: Which implementation phase we're in
+- **Active Tasks**: Current development priorities with status
+- **Completed Tasks**: Recently finished work for context
+- **Next Steps**: Upcoming priorities based on current progress
+- **Blockers**: Any issues preventing progress
+- **Notes**: Important context or decisions made
+
+### Development Workflow
+1. Start each session by reading CLAUDE.md and TODO.md
+2. Update TODO.md status before beginning work
+3. Document any architectural decisions in CLAUDE.md
+4. Update TODO.md with progress before ending session
+5. Ensure all changes maintain project consistency
