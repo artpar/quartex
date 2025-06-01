@@ -26,6 +26,7 @@ let package = Package(
                 "Core/AIAgent/AIAgent.swift",
                 "Core/AIAgent/LLMClient.swift",
                 "UI/Components/ViewController.swift",
+                "UI/Components/StreamingTextView.swift",
                 "Models/Message.swift",
                 "Models/Conversation.swift",
                 "Models/Tool.swift",

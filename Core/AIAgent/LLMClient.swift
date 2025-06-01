@@ -20,7 +20,7 @@ class LLMClient: ObservableObject {
         logger.info("LLMClient initialized")
     }
     
-    func sendMessage(messages: [LLMMessage], completion: @escaping (Result<String, Error>) -> Void) {
+    func sendMessage(messages: [LLMMessage], streamingCallback: ((String) -> Void)? = nil, completion: @escaping (Result<String, Error>) -> Void) {
         guard !config.apiKey.isEmpty else {
             completion(.failure(AIAgentError.noAPIKey))
             return
@@ -47,13 +47,13 @@ class LLMClient: ObservableObject {
         }
         
         if request.stream {
-            streamResponse(request: urlRequest, completion: completion)
+            streamResponse(request: urlRequest, streamingCallback: streamingCallback, completion: completion)
         } else {
             regularResponse(request: urlRequest, completion: completion)
         }
     }
     
-    private func streamResponse(request: URLRequest, completion: @escaping (Result<String, Error>) -> Void) {
+    private func streamResponse(request: URLRequest, streamingCallback: ((String) -> Void)? = nil, completion: @escaping (Result<String, Error>) -> Void) {
         isStreaming = true
         currentResponse = ""
         
@@ -92,6 +92,7 @@ class LLMClient: ObservableObject {
                         fullResponse += content
                         DispatchQueue.main.async {
                             self?.currentResponse = fullResponse
+                            streamingCallback?(fullResponse)
                         }
                     }
                 }

@@ -39,7 +39,7 @@ class AIAgent: ObservableObject {
         currentConversation.addMessage(LLMMessage(role: "system", content: systemPrompt))
     }
     
-    func processUserInput(_ input: String) async {
+    func processUserInput(_ input: String, streamingCallback: ((String) -> Void)? = nil) async {
         DispatchQueue.main.async {
             self.isProcessing = true
             self.streamingResponse = ""
@@ -48,7 +48,7 @@ class AIAgent: ObservableObject {
         currentConversation.addUserMessage(input)
         
         do {
-            let response = try await sendToLLM()
+            let response = try await sendToLLM(streamingCallback: streamingCallback)
             
             DispatchQueue.main.async {
                 self.currentConversation.addAssistantMessage(response)
@@ -66,15 +66,15 @@ class AIAgent: ObservableObject {
         }
     }
     
-    private func sendToLLM() async throws -> String {
+    private func sendToLLM(streamingCallback: ((String) -> Void)? = nil) async throws -> String {
         return try await withCheckedThrowingContinuation { continuation in
-            llmClient.sendMessage(messages: currentConversation.messages) { result in
+            llmClient.sendMessage(messages: currentConversation.messages, streamingCallback: streamingCallback) { result in
                 continuation.resume(with: result)
             }
         }
     }
     
-    private func processToolRequests(in response: String) async {
+    func processToolRequests(in response: String) async {
         let toolPattern = #"@(\w+)\((.*?)\)"#
         let regex = try! NSRegularExpression(pattern: toolPattern, options: [])
         let matches = regex.matches(in: response, options: [], range: NSRange(location: 0, length: response.utf16.count))
@@ -112,7 +112,7 @@ class AIAgent: ObservableObject {
         }
     }
     
-    private func parseParameters(_ parametersString: String) -> [String: Any] {
+    func parseParameters(_ parametersString: String) -> [String: Any] {
         let components = parametersString.components(separatedBy: ",")
         var parameters: [String: Any] = [:]
         

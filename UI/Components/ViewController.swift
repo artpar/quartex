@@ -7,6 +7,7 @@ class ViewController: NSViewController {
     private var chatContainer: NSStackView!
     private var inputField: NSTextField!
     private var sendButton: NSButton!
+    private var currentStreamingView: StreamingTextView?
     
     override func loadView() {
         view = NSView(frame: NSRect(x: 0, y: 0, width: 800, height: 600))
@@ -105,14 +106,24 @@ class ViewController: NSViewController {
         addMessageBubble(text: userMessage, isUser: true)
         inputField.stringValue = ""
         
+        // Add streaming response bubble
+        let streamingView = StreamingTextView(isUser: false)
+        currentStreamingView = streamingView
+        chatContainer.addArrangedSubview(streamingView)
+        streamingView.startStreaming()
+        scrollToBottom()
+        
         Task {
-            await aiAgent.processUserInput(userMessage)
+            await aiAgent.processUserInput(userMessage) { [weak self] partialResponse in
+                DispatchQueue.main.async {
+                    self?.currentStreamingView?.updateStreamingText(partialResponse)
+                    self?.scrollToBottom()
+                }
+            }
             
             DispatchQueue.main.async {
-                if let lastMessage = self.aiAgent.currentConversation.messages.last,
-                   lastMessage.role == "assistant" {
-                    self.addMessageBubble(text: lastMessage.content, isUser: false)
-                }
+                self.currentStreamingView?.finishStreaming()
+                self.currentStreamingView = nil
                 self.scrollToBottom()
             }
         }

@@ -5,7 +5,7 @@ MACOS_DIR = $(CONTENTS_DIR)/MacOS
 RESOURCES_DIR = $(CONTENTS_DIR)/Resources
 
 # Source files
-SWIFT_FILES = main.swift AppDelegate.swift UI/Components/ViewController.swift Core/AIAgent/LLMClient.swift Core/AIAgent/AIAgent.swift Models/Message.swift Models/Conversation.swift Models/Tool.swift Models/AIResponse.swift Models/InputEvent.swift Models/Plugin.swift Utils/Logger.swift Utils/Configuration.swift Utils/Constants.swift Utils/ErrorHandling.swift Utils/Extensions.swift
+SWIFT_FILES = main.swift AppDelegate.swift UI/Components/ViewController.swift UI/Components/StreamingTextView.swift Core/AIAgent/LLMClient.swift Core/AIAgent/AIAgent.swift Models/Message.swift Models/Conversation.swift Models/Tool.swift Models/AIResponse.swift Models/InputEvent.swift Models/Plugin.swift Utils/Logger.swift Utils/Configuration.swift Utils/Constants.swift Utils/ErrorHandling.swift Utils/Extensions.swift
 
 # Test files
 TEST_FILES = $(shell find Tests -name "*.swift" -type f)
